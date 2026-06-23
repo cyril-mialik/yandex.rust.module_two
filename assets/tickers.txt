@@ -7,5 +7,4 @@ NVDA
 META
 BRK.B
 JPM
-VTI
 
