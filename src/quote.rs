@@ -1,3 +1,6 @@
+/// Разделитель полей в строке котировки согласно протоколу
+const TICKER_SEPARATOR: char = '|';
+
 /// Индекс поля с тикером в строке котировки (0-based)
 const TICKER_INDEX: usize = 0;
 
@@ -10,12 +13,9 @@ const VOLUME_INDEX: usize = 2;
 /// Индекс поля с временной меткой в строке котировки (0-based)
 const TIMESTAMP_INDEX: usize = 3;
 
-/// Разделитель полей в строке котировки согласно протоколу
-const TICKER_SEPARATOR: char = '|';
-
 /// Ожидаемое количество полей в строке котировки:
 /// ticker|price|volume|timestamp_ms
-const TIKER_LEN: usize = 4;
+const TICKER_LEN: usize = 4;
 
 /// Ошибки, возникающие при парсинге котировки из строки.
 #[derive(Debug, PartialEq)]
@@ -186,9 +186,9 @@ impl StockQuote {
     pub fn from_wire_line(line: &str) -> Result<Self, ParseQuoteError> {
         let parts: Vec<&str> = line.split(TICKER_SEPARATOR).collect();
 
-        if parts.len() != TIKER_LEN {
+        if parts.len() != TICKER_LEN {
             return Err(ParseQuoteError::InvalidFieldCount {
-                expected: TIKER_LEN,
+                expected: TICKER_LEN,
                 actual: parts.len(),
             });
         }
